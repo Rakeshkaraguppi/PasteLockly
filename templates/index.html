@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PasteLockly - Share Text Snippets</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>PasteLockly</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create Shareable URL</button>
+        </form>
+
+        {% if shareable_url %}
+        <div class="shareable-url">
+            <p>Your shareable URL:</p>
+            <a href="{{ shareable_url }}" target="_blank">{{ shareable_url }}</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

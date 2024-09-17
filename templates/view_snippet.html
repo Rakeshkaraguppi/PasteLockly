@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Snippet</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        {% if is_encrypted and not decrypted_text %}
+            <h2>Enter Secret Key to View the Snippet</h2>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="secret_key" placeholder="Enter the secret key" required>
+                <button type="submit">Decrypt</button>
+            </form>
+        {% elif decrypted_text %}
+            <h2>Your Snippet:</h2>
+            <p>{{ decrypted_text }}</p>
+        {% else %}
+            <h2>Your Snippet:</h2>
+            <p>{{ snippet.content.decode }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
